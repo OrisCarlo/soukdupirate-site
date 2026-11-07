@@ -170,7 +170,11 @@ function cats(){var cs={};GROUPS.forEach(function(g){if(g.r)cs[g.r]=(cs[g.r]||0)
   $("cats").innerHTML=ks.map(function(k){return tile(k,k,cs[k],pic[k]?'<img src="'+img(pic[k],200)+'" alt="" loading="lazy" data-alt="'+img2(pic[k],200)+'">':ico(k,30));}).join("");}
 function draw(){var fa=nAct();
   var ls=base().filter(function(g){return !fa||g.vars.some(function(v){return vMatch(v,null);});});
-  var out=function(g){return g.vars.every(function(x){return x.a==="epuise";});};ls=ls.filter(function(g){return !out(g);}).concat(ls.filter(out));
+  var out=function(g){return g.vars.every(function(x){return x.a==="epuise";});};
+  var RO=["Bodyboards","Palmes","Combinaisons","Leashes","Housses & sacs","Chapeaux & casques","Surf","Wax","Accessoires"];
+  var ri=function(g){var i=RO.indexOf(g.r);return i<0?RO.length:i;};
+  var sc=function(g){var ph=g.vars.some(function(v){return photos(v).length;})?1:0;var st=0;g.vars.forEach(function(v){if(v.a!=="epuise")st+=Number(v.q)||0;});return ph*1000+Math.min((g.colors||[]).length,6)*50+Math.min(st,40);};
+  ls=ls.map(function(g,i){return {g:g,i:i,o:out(g)?1:0,r:ri(g),s:sc(g)};}).sort(function(a,b){return a.o-b.o||a.r-b.r||b.s-a.s||a.i-b.i;}).map(function(x){return x.g;});
   renderF();$("fgo").textContent="Voir "+ls.length+" article"+(ls.length>1?"s":"");
   $("count").textContent=ls.length+" article"+(ls.length>1?"s":"");
   $("grid").innerHTML=ls.length?ls.slice(0,300).map(function(g){var it=curF(g);var q=CART[it.k]?CART[it.k].q:0;
