@@ -143,8 +143,8 @@ footer.ft{text-align:left;background:#0b2230;color:#cfe0e6;padding:0;margin-top:
 @media (prefers-reduced-motion:reduce){.hero .contact a.wapulse,.fwa{animation:none}}
 .hpro{margin:-4px 0 14px;display:inline-block;background:rgba(255,208,138,.16);border:1px solid rgba(255,208,138,.55);color:#fff;border-radius:12px;padding:7px 12px;font-size:14.5px;line-height:1.4}.hpro b{color:#ffd08a}@media (max-width:700px){.hpro{font-size:13px}}
 .fallw{display:block;padding-top:0}.fall summary{cursor:pointer;color:#9fb8c1;font-size:13px}.fallg{columns:3 220px;column-gap:24px;margin-top:12px}.fallg h3{color:#fff;font-size:13px;margin:10px 0 4px;break-after:avoid}.fallg ul{margin:0 0 8px;padding-left:16px;color:#9fb8c1;font-size:12.5px;line-height:1.5}
-</style></head><body>
-<header class="hero"><picture><source media="(max-width:700px)" srcset="hero-m.webp"><img class="hbg" src="hero.webp" alt="" fetchpriority="high"></picture><div class="hin">
+#lang{position:absolute;top:14px;right:16px;z-index:3;border:1px solid rgba(255,255,255,.6);background:rgba(11,34,48,.45);color:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;backdrop-filter:blur(4px)}#lang:hover{background:rgba(11,34,48,.7)}html.ar #lang{right:auto;left:16px}html.ar body{font-family:"Segoe UI",Tahoma,"Noto Sans Arabic","Geeza Pro",Arial,sans-serif}html.ar .ft{text-align:right}html.ar .hk,html.ar .ft h4{letter-spacing:0}html.ar .nm,html.ar .line>span:first-child,html.ar .ol b,html.ar details li,html.ar .ft li{unicode-bidi:plaintext;text-align:right}</style></head><body>
+<header class="hero"><button type="button" id="lang" lang="ar">الدارجة</button><picture><source media="(max-width:700px)" srcset="hero-m.webp"><img class="hbg" src="hero.webp" alt="" fetchpriority="high"></picture><div class="hin">
 <img class="hlogo" src="logo-blanc.png" alt="Souk du Pirate" width="230" height="222">
 <div class="htx"><p class="hk">Bienvenue chez</p><h1>Souk du Pirate</h1><p class="hcat">Catalogue</p>
 <p class="hsub"><strong>Boutique de surf, bodyboard et glisse au Maroc — <b style="white-space:nowrap;font-weight:inherit">au détail et en gros.</b></strong><span>Pour toi, ton club ou ton magasin : devis gratuit et sans engagement.</span></p>
@@ -362,7 +362,7 @@ function sheet(){var ks=Object.keys(CART);
   ["fn","ft","fm"].forEach(function(id){$(id).addEventListener("input",function(){FORM[{fn:"n",ft:"t",fm:"m"}[id]]=this.value;});});
   $("sheet").style.display="flex";}
 function close(){$("sheet").style.display="none";}
-function waText(){var ks=Object.keys(CART);return "Bonjour Souk du Pirate, je voudrais un devis pour :\n"+ks.map(function(k){return "- "+CART[k].q+" x "+CART[k].d;}).join("\n")+(FORM.m?"\n"+FORM.m:"")+"\n"+FORM.n;}
+function waText(){var ks=Object.keys(CART);return (window.SOUK_AR?"السلام عليكم Souk du Pirate، بغيت ديفي ديال:\n":"Bonjour Souk du Pirate, je voudrais un devis pour :\n")+ks.map(function(k){return "- "+CART[k].q+" x "+CART[k].d;}).join("\n")+(FORM.m?"\n"+FORM.m:"")+"\n"+FORM.n;}
 function send(b){var n=FORM.n.trim(),t=FORM.t.trim(),err=$("ferr");
   if(n.length<2){err.textContent="Indique ton nom.";return;} if(t.replace(/\D/g,"").length<8){err.textContent="Indique ton numéro de téléphone.";return;}
   b.disabled=true;b.textContent="Envoi…";var lines=Object.keys(CART).map(function(k){return {k:k,d:CART[k].d,q:CART[k].q};});var wt=waText();
@@ -377,4 +377,63 @@ fetch("catalogue.json?t="+Math.floor(Date.now()/600000)).then(function(r){return
 api("publicCatalogue",[]).then(function(r){take(r,"api");}).catch(function(){setTimeout(function(){if(!GOT)$("count").textContent="Catalogue indisponible pour le moment. Écris-nous sur WhatsApp !";},4000);});
 bar();
 })();
-</script></body></html>
+</script><script>
+(function(){
+"use strict";
+var LK="souk_lang",AR=false;try{AR=localStorage.getItem(LK)==="ar";}catch(e){}
+var D={
+"Bienvenue chez":"مرحبا بيك عند","Catalogue":"الكاتالوگ","Le catalogue":"الكاتالوگ",
+"Boutique de surf, bodyboard et glisse au Maroc —":"حانوت ديال السورف والبودي بورد فالمغرب —",
+"au détail et en gros.":"بالتقسيط وبالجملة.",
+"Pour toi, ton club ou ton magasin : devis gratuit et sans engagement.":"ليك، للكلوب ديالك ولا للحانوت ديالك: ديفي فابور وبلا حتى التزام.",
+"Bodyboards":"بودي بورد","Palmes":"پالمات","Leashes":"ليشات","Combinaisons":"كومبينيزونات","Housses & sacs":"هوصات و صاكات","Accessoires":"أكسسوارات","Wax & protection":"واكس و الحماية","Wax":"واكس","Chapeaux & casques":"طاكيات و كاسكات","Surf":"سورف",
+"Filtrer":"فيلتري","Filtres":"الفيلترات","Catégorie":"الصنف","Marque":"الماركة","Disponibilité":"الستوك","En stock":"كاين فالستوك","Rupture de stock":"سالا","Sur commande":"بالطلب","● Sur commande":"● بالطلب","● Bientôt disponible":"● غادي يوصل قريب","Bientôt disponible":"غادي يوصل قريب",
+"Taille":"القياس","Matériau":"المادة","Couleur":"اللون","Épaisseur":"التخانة","Fixation":"فين كيتربط",
+"Noir":"كحل","Blanc":"بيض","Gris":"رمادي","Bleu":"زرق","Vert":"خضر","Jaune":"صفر","Orange":"ليموني","Rouge":"حمر","Rose":"وردي","Violet":"موڤ","Multicolore":"ملون",
+"PP (polypropylène)":"PP (بوليپروپيلين)","PE (polyéthylène)":"PE (بوليإيثيلين)",
+"Biceps (bodyboard)":"فالذراع (بودي بورد)","Poignet (bodyboard)":"فاليد (بودي بورد)","Cheville (surf)":"فالرجل (سورف)",
+"ℹ Voir la description":"ℹ شوف الوصف","Coloris :":"اللون:","Taille :":"القياس:",
+"+ Ajouter":"+ زيد","à ma demande":"للطلب ديالي","Ajouter à ma demande":"زيد للطلب ديالي","Dernière pièce en stock":"آخر حبة فالستوك",
+"Afficher moins ⌃":"بان قل ⌃","Tout effacer":"مسح كلشي",
+"Aucun article ne correspond. Demande-nous sur WhatsApp, on peut souvent le commander !":"ما لقينا حتى منتوج. سولنا ف واتساب، غالبا نقدرو نجيبوه ليك!",
+"Matériel de surf, bodyboard et glisse au Maroc. Science, Mike Stewart, Gyroll, Rip, West, Victory… Au détail et en gros pour les clubs, écoles et magasins.":"سلعة ديال السورف والبودي بورد فالمغرب: Science، Mike Stewart، Gyroll، Rip، West، Victory… بالتقسيط وبالجملة للكلوبات، المدارس والحوانت.",
+"Comment ça marche":"كيفاش خدامين","Choisis tes articles et touche « Ajouter ».":"ختار السلعة لي بغيتي وكليكي على « زيد ».",
+"Envoie ta demande : elle part sur WhatsApp.":"صيفط الطلب ديالك: كيمشي ليا ف واتساب.",
+"On te répond vite avec un devis personnalisé, gratuit et sans engagement.":"كنجاوبوك دغيا بديفي على قدك، فابور وبلا التزام.",
+"Nous contacter":"تواصل معانا","On te répond directement sur WhatsApp.":"كنجاوبوك ديريكت ف واتساب.","Toutes nos références":"كاع المنتوجات ديالنا",
+"Souk du Pirate · Surf & bodyboard au Maroc":"Souk du Pirate · سورف و بودي بورد فالمغرب",
+"Ma demande de devis":"الطلب ديالي ديال الديفي","Ton nom *":"سميتك *","Téléphone (WhatsApp) *":"التيليفون (واتساب) *",
+"Message (taille, couleur, ville de livraison…)":"ميساج (القياس، اللون، المدينة فين نوصلوه…)",
+"Continuer":"كمل","Envoyer sur WhatsApp":"صيفط ف واتساب","Indique ton nom.":"كتب سميتك.","Indique ton numéro de téléphone.":"كتب نمرة التيليفون ديالك.","Envoi…":"كنصيفطو…",
+"Demande envoyée !":"الطلب تصيفط!","appuie sur Envoyer":"كليكي على صيفط",
+"pour nous la transmettre. On te répond très vite avec un devis personnalisé.":"باش يوصلنا. غادي نجاوبوك دغيا بديفي على قدك.",
+"Rouvrir WhatsApp":"حل واتساب عاوتاني","Fermer":"سد","Envoi impossible.":"ما تصيفطش.","Envoie-la sur WhatsApp":"صيفطو ف واتساب",
+"Catalogue indisponible pour le moment. Écris-nous sur WhatsApp !":"الكاتالوگ ما خدامش دابا. كتب لينا ف واتساب!",
+"Chargement du catalogue…":"كيتشارجا الكاتالوگ…",
+"Voir la fiche":"شوف المنتوج","Moins":"نقص","Plus":"زيد","Fermer les filtres":"سد الفيلترات","Rechercher":"قلب",
+"Rechercher un article : palmes, leash, Science, taille…":"قلب على شي منتوج: پالمات، ليش، Science، قياس…"
+};
+var P=[
+[/^(\d+) articles?$/,"$1 منتوج"],[/^Voir (\d+) articles?$/,"شوف $1 منتوج"],[/^Demander un devis · (\d+) articles?$/,"طلب ديفي · $1 منتوج"],
+[/^(\d+) pièces en stock$/,"$1 حبات فالستوك"],[/^Afficher \((\d+)\) plus ⌄$/,"بان $1 كثر ⌄"],
+[/^Merci (.+)\. WhatsApp s'est ouvert avec ta demande déjà écrite :$/,"شكرا $1. واتساب تحل والطلب ديالك مكتوب:"]
+];
+function tr(t){if(D.hasOwnProperty(t))return D[t];for(var i=0;i<P.length;i++)if(P[i][0].test(t))return t.replace(P[i][0],P[i][1]);
+  if(t.indexOf(" · ")>0){var ps=t.split(" · "),ch=false;ps=ps.map(function(x){if(D.hasOwnProperty(x)){ch=true;return D[x];}return x;});if(ch)return ps.join(" · ");}
+  return null;}
+function txt(n){var v=n.nodeValue,t=v.trim();if(!t)return;var r=tr(t);if(r!==null&&r!==t)n.nodeValue=v.replace(t,r);}
+var AT=["placeholder","aria-label","title"];
+function el(e){for(var i=0;i<AT.length;i++){var a=e.getAttribute&&e.getAttribute(AT[i]);if(a){var r=tr(a.trim());if(r!==null)e.setAttribute(AT[i],r);}}}
+function walk(root){if(!root)return;if(root.nodeType===3){txt(root);return;}if(root.nodeType!==1)return;var tg=root.tagName;if(tg==="SCRIPT"||tg==="STYLE")return;
+  el(root);root.querySelectorAll("[placeholder],[aria-label],[title]").forEach(el);
+  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode;return p&&(p.tagName==="SCRIPT"||p.tagName==="STYLE")?2:1;}}),n;while((n=w.nextNode()))txt(n);}
+window.SOUK_AR=AR;window.SOUK_T=function(s){if(!AR)return s;var r=tr(s);return r===null?s:r;};
+function btn(){var b=document.getElementById("lang");if(b){b.textContent=AR?"Français":"الدارجة";b.setAttribute("lang",AR?"fr":"ar");}}
+function go(){btn();var b=document.getElementById("lang");if(b)b.addEventListener("click",function(){try{localStorage.setItem(LK,AR?"fr":"ar");}catch(e){}location.reload();});
+  if(!AR)return;var h=document.documentElement;h.lang="ar";h.dir="rtl";h.classList.add("ar");walk(document.body);
+  new MutationObserver(function(ms){ms.forEach(function(m){if(m.type==="characterData")txt(m.target);else if(m.type==="attributes")el(m.target);else m.addedNodes.forEach(walk);});})
+    .observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:AT});}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
+})();
+</script>
+</body></html>
