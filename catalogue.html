@@ -306,7 +306,7 @@ var FORM={n:"",t:"",m:""};
 function sheet(){var ks=Object.keys(CART);
   $("box").innerHTML='<h2>Ma demande de devis</h2>'+ks.map(function(k){var c=CART[k];return '<div class="line"><span>'+esc(c.d)+'</span><span class="step" style="margin:0;flex-shrink:0"><button type="button" data-m="'+esc(k)+'">−</button><span>'+c.q+'</span><button type="button" data-p="'+esc(k)+'">+</button></span></div>';}).join("")
    +'<label>Ton nom *<input id="fn" autocomplete="name" value="'+esc(FORM.n)+'"></label><label>Téléphone (WhatsApp) *<input id="ft" type="tel" autocomplete="tel" placeholder="+212…" value="'+esc(FORM.t)+'"></label><label>Message (taille, couleur, ville de livraison…)<textarea id="fm" rows="3">'+esc(FORM.m)+'</textarea></label><input class="hp" id="fw" tabindex="-1" autocomplete="off" aria-hidden="true"><div class="err" id="ferr"></div>'
-   +'<div class="btns"><button type="button" id="close">Continuer</button><button type="button" class="go" id="send">Envoyer la demande</button></div>';
+   +'<div class="btns"><button type="button" id="close">Continuer</button><button type="button" class="go" id="send">Envoyer sur WhatsApp</button></div>';
   ["fn","ft","fm"].forEach(function(id){$(id).addEventListener("input",function(){FORM[{fn:"n",ft:"t",fm:"m"}[id]]=this.value;});});
   $("sheet").style.display="flex";}
 function close(){$("sheet").style.display="none";}
@@ -314,9 +314,10 @@ function waText(){var ks=Object.keys(CART);return "Bonjour Souk du Pirate, je vo
 function send(b){var n=FORM.n.trim(),t=FORM.t.trim(),err=$("ferr");
   if(n.length<2){err.textContent="Indique ton nom.";return;} if(t.replace(/\D/g,"").length<8){err.textContent="Indique ton numéro de téléphone.";return;}
   b.disabled=true;b.textContent="Envoi…";var lines=Object.keys(CART).map(function(k){return {k:k,d:CART[k].d,q:CART[k].q};});var wt=waText();
+  var waw=null;try{waw=window.open(WA+"?text="+encodeURIComponent(wt),"_blank");}catch(e){}
   api("publicRequest",[{n:n,t:t,m:FORM.m,w:$("fw").value,lines:lines}]).then(function(r){var link=WA+"?text="+encodeURIComponent(wt+"\n(Demande "+(r&&r.num||"")+")");CART={};saveCart();draw();
-      $("box").innerHTML='<div class="done"><div class="big">✅</div><h2>Demande envoyée !</h2><p>Merci '+esc(n)+'. On prépare ton devis personnalisé et on te recontacte très vite au '+esc(t)+'.</p><a class="wa" target="_blank" rel="noopener" href="'+link+'"><span class="dot" style="background:#fff"></span>Prévenir aussi sur WhatsApp</a><div class="btns"><button type="button" id="close">Fermer</button></div></div>';})
-    .catch(function(e){b.disabled=false;b.textContent="Envoyer la demande";err.innerHTML=esc(String(e&&e.message||"Envoi impossible."))+' <a target="_blank" rel="noopener" href="'+WA+"?text="+encodeURIComponent(wt)+'">Envoie-la sur WhatsApp</a>';});}
+      $("box").innerHTML='<div class="done"><div class="big">✅</div><h2>Demande envoyée !</h2><p>Merci '+esc(n)+'. WhatsApp s\'est ouvert avec ta demande déjà écrite : <b>appuie sur Envoyer</b> pour nous la transmettre. On te répond très vite avec un devis personnalisé.</p><a class="wa" target="_blank" rel="noopener" href="'+link+'"><span class="dot" style="background:#fff"></span>'+(waw?'Rouvrir WhatsApp':'Envoyer sur WhatsApp')+'</a><div class="btns"><button type="button" id="close">Fermer</button></div></div>';})
+    .catch(function(e){b.disabled=false;b.textContent="Envoyer sur WhatsApp";err.innerHTML=esc(String(e&&e.message||"Envoi impossible."))+' <a target="_blank" rel="noopener" href="'+WA+"?text="+encodeURIComponent(wt)+'">Envoie-la sur WhatsApp</a>';});}
 var PCK="souk_pc4",MAJ=-1,GOT=false;function show(r){ITEMS=(r&&r.items)||[];ITEMS.forEach(function(it){if(/ATTACHE|FIN SAVER|SHACKLE|CONNECTOR|\bPLUG\b/i.test(it.d||""))it.r="Accessoires";});group();cats();draw();}
 function take(r,src){if(!r||!r.items||!r.items.length)return;var m=Number(r.maj)||0;if(GOT&&m<=MAJ)return;MAJ=m;GOT=true;show(r);if(src==="api")try{localStorage.setItem(PCK,JSON.stringify(r));}catch(e){}}
 try{var pc=JSON.parse(localStorage.getItem(PCK)||"null");take(pc,"ls");}catch(e){}
