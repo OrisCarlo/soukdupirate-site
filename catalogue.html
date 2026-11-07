@@ -112,19 +112,41 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;padding:20px 16px}
 
 #fsh .box{padding-top:0}.fhd{position:sticky;top:0;z-index:2;background:var(--card);display:flex;align-items:center;gap:12px;padding:14px 0 12px;border-bottom:1px solid var(--line);margin-bottom:4px}
 .fhd b{font-size:18px;flex:1}#fclose{width:40px;height:40px;border-radius:50%;border:0;background:var(--bg);color:var(--ink);font-size:18px;font-weight:800;cursor:pointer;flex-shrink:0}
+
+footer.ft{text-align:left;background:#0b2230;color:#cfe0e6;padding:0;margin-top:30px;font-size:14px}
+.ftin{max-width:1240px;margin:0 auto;padding:36px 16px 20px;display:grid;grid-template-columns:1.3fr 1fr 1.3fr 1.2fr;gap:28px}
+.fcol h4{margin:0 0 12px;color:#fff;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.fbrand img{width:96px;height:auto;margin-bottom:10px}.fbrand p{margin:0;line-height:1.5;color:#9fb8c1}
+.flink{display:block;background:none;border:0;padding:4px 0;color:#cfe0e6;font:inherit;font-size:14px;cursor:pointer;text-align:left}.flink:hover{color:#ffd08a}
+.fsteps{margin:0;padding-left:18px;line-height:1.5;color:#9fb8c1}.fsteps li{margin-bottom:6px}
+.fwa{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;text-decoration:none;font-weight:800;padding:10px 14px;border-radius:12px;margin-bottom:10px}
+.fml{display:block;color:#cfe0e6;text-decoration:none;margin-bottom:8px}.fml:hover{color:#ffd08a}.fsm{margin:0;color:#7f9aa4;font-size:12.5px}
+.fbot{border-top:1px solid rgba(255,255,255,.1);text-align:center;padding:14px 16px calc(14px + env(safe-area-inset-bottom));color:#7f9aa4;font-size:12.5px}
+@media (max-width:800px){.ftin{grid-template-columns:1fr 1fr;gap:22px}.fbrand{grid-column:1/-1}}
+@media (max-width:480px){.ftin{grid-template-columns:1fr}}
+@keyframes wap{0%{box-shadow:0 0 0 0 rgba(37,211,102,.75)}70%{box-shadow:0 0 0 12px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+@keyframes wab{0%,100%{background:rgba(255,255,255,.14)}50%{background:rgba(37,211,102,.85)}}
+.hero .contact a.wapulse{animation:wap 1.6s infinite,wab 1.6s infinite;border-color:#25d366}
+.fwa{animation:wap 1.6s infinite}
+@media (prefers-reduced-motion:reduce){.hero .contact a.wapulse,.fwa{animation:none}}
 </style></head><body>
 <header class="hero"><picture><source media="(max-width:700px)" srcset="hero-m.webp"><img class="hbg" src="hero.webp" alt="" fetchpriority="high"></picture><div class="hin">
 <img class="hlogo" src="logo-blanc.png" alt="Souk du Pirate" width="230" height="222">
 <div class="htx"><p class="hk">Bienvenue chez</p><h1>Souk du Pirate</h1><p class="hcat">Catalogue</p>
 <p class="hsub">Surf, bodyboard et glisse au Maroc. Choisis tes articles, on te répond avec un devis personnalisé, gratuit et sans engagement.</p>
-<div class="contact"><a id="waTop" target="_blank" rel="noopener"><span class="dot"></span>WhatsApp</a><a id="mailTop">✉ soukdupirate@gmail.com</a></div></div></div></header>
+<div class="contact"><a id="waTop" class="wapulse" target="_blank" rel="noopener"><span class="dot"></span>WhatsApp</a><a id="mailTop">✉ soukdupirate@gmail.com</a></div></div></div></header>
 <main>
 <div class="sbox"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg><input id="q" type="search" placeholder="Rechercher un article : palmes, leash, Science, taille…" autocomplete="off" aria-label="Rechercher"></div>
 <div class="chips" id="cats"></div>
 <div class="tools"><div class="count" id="count">Chargement du catalogue…</div><button type="button" id="fbtn">Filtres</button></div>
 <div class="lay"><aside id="side" aria-label="Filtres"></aside><div><div class="grid" id="grid"></div></div></div>
 </main>
-<footer>Souk du Pirate · +33 6 40 20 50 55 · soukdupirate@gmail.com</footer>
+<footer class="ft"><div class="ftin">
+<div class="fcol fbrand"><img src="logo-blanc.png" alt="Souk du Pirate" width="96" height="93"><p>Matériel de surf, bodyboard et glisse au Maroc. Science, Mike Stewart, Gyroll, Rip, West, Victory…</p></div>
+<div class="fcol"><h4>Le catalogue</h4><button type="button" class="flink" data-fcat="Bodyboards">Bodyboards</button><button type="button" class="flink" data-fcat="Palmes">Palmes</button><button type="button" class="flink" data-fcat="Combinaisons">Combinaisons</button><button type="button" class="flink" data-fcat="Leashes">Leashes</button><button type="button" class="flink" data-fcat="Housses &amp; sacs">Housses &amp; sacs</button><button type="button" class="flink" data-fcat="Accessoires">Accessoires</button></div>
+<div class="fcol"><h4>Comment ça marche</h4><ol class="fsteps"><li>Choisis tes articles et touche « Ajouter ».</li><li>Envoie ta demande : elle part sur WhatsApp.</li><li>On te répond vite avec un devis personnalisé, gratuit et sans engagement.</li></ol></div>
+<div class="fcol"><h4>Nous contacter</h4><a class="fwa" id="waFoot" target="_blank" rel="noopener"><span class="dot" style="background:#fff"></span>WhatsApp · +33 6 40 20 50 55</a><a class="fml" href="mailto:soukdupirate@gmail.com">✉ soukdupirate@gmail.com</a><p class="fsm">On te répond directement sur WhatsApp.</p></div>
+</div><div class="fbot">© <span id="fyr"></span> Souk du Pirate · Surf &amp; bodyboard au Maroc</div></footer>
 <div id="bar"><button type="button" id="open">Demander un devis</button></div>
 <div id="lb" role="dialog" aria-modal="true"><div class="fbox"><button type="button" id="lbx" aria-label="Fermer">✕</button><div class="fimg" id="lbf"><img id="lbi" alt=""><button type="button" class="nv" id="lbp" aria-label="Photo précédente">‹</button><button type="button" class="nv" id="lbn" aria-label="Photo suivante">›</button><span id="lbk"></span></div><div class="fbody" id="lbb"></div></div></div>
 <div id="sheet" role="dialog" aria-modal="true"><div class="box" id="box"></div></div>
@@ -139,7 +161,7 @@ var $=function(i){return document.getElementById(i);};
 var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});};
 var strip=function(s){return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();};
 try{var g=$("logo");g.src="data:image/png;base64,"+g.getAttribute("data-b").replace(/_/g,"/");}catch(e){}
-$("waTop").href=WA; $("mailTop").href="mailto:"+MAIL;
+$("waTop").href=WA;try{$("waFoot").href=WA;$("fyr").textContent=new Date().getFullYear();}catch(e){} $("mailTop").href="mailto:"+MAIL;
 var ITEMS=[], CAT="", ONLY=false, CART={};
 try{CART=JSON.parse(localStorage.getItem("souk_cart")||"{}")||{};}catch(e){CART={};}
 function saveCart(){try{localStorage.setItem("souk_cart",JSON.stringify(CART));}catch(e){}}
@@ -218,6 +240,7 @@ function renderF(){var B=base(),h="";facets().forEach(function(F){var n=F[0],fn=
   h=hc+h;
   $("side").innerHTML='<div class="fg"><h3>Filtres'+(nAct()?'<button type="button" class="fclr" data-fclr="*">Tout effacer</button>':'')+'</h3></div>'+h;$("fpan").innerHTML='<div class="fhd"><b>Filtres</b>'+(nAct()?'<button type="button" class="fclr" data-fclr="*">Tout effacer</button>':'<span></span>')+'<button type="button" id="fclose" aria-label="Fermer les filtres">✕</button></div>'+h;
   var na=nAct();$("fbtn").innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtrer'+(na?' <span class="fn">'+na+'</span>':"");}
+document.addEventListener("click",function(e){var f=e.target.closest&&e.target.closest(".flink");if(!f)return;CAT=f.dataset.fcat;FS={};FX={};cats();draw();var c=$("cats");if(c)window.scrollTo({top:c.getBoundingClientRect().top+window.scrollY-20,behavior:"smooth"});});
 document.addEventListener("change",function(e){var t=e.target;if(t.dataset&&t.dataset.fcat!==undefined){CAT=t.checked?t.dataset.fcat:"";FS={};FX={};cats();draw();return;}if(!t.dataset||t.dataset.fn===undefined)return;var n=t.dataset.fn,x=t.dataset.fv;FS[n]=FS[n]||{};if(t.checked)FS[n][x]=1;else delete FS[n][x];draw();});
 function curF(g){var c=cur(g);if(!nAct()||vMatch(c,null))return c;var best=null;g.vars.forEach(function(x){if(!vMatch(x,null))return;if(!best||rank(x)<rank(best))best=x;});return best||c;}
 document.addEventListener("mouseover",function(e){if(!window.matchMedia||!matchMedia("(hover:hover)").matches)return;var p=e.target.closest&&e.target.closest(".ph");if(!p||p._hv)return;var im=p.querySelector("img[data-h]");if(!im)return;p._hv=1;var h=new Image();h.className="hv";h.alt="";h.onload=function(){h.classList.add("ok");};h.onerror=function(){if(h.src!==img2(im.dataset.h))h.src=img2(im.dataset.h);};h.src=img(im.dataset.h);im.parentNode.insertBefore(h,im.nextSibling);});
