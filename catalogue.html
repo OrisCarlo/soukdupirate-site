@@ -143,8 +143,8 @@ footer.ft{text-align:left;background:#0b2230;color:#cfe0e6;padding:0;margin-top:
 @media (prefers-reduced-motion:reduce){.hero .contact a.wapulse,.fwa{animation:none}}
 .hpro{margin:-4px 0 14px;display:inline-block;background:rgba(255,208,138,.16);border:1px solid rgba(255,208,138,.55);color:#fff;border-radius:12px;padding:7px 12px;font-size:14.5px;line-height:1.4}.hpro b{color:#ffd08a}@media (max-width:700px){.hpro{font-size:13px}}
 .fallw{display:block;padding-top:0}.fall summary{cursor:pointer;color:#9fb8c1;font-size:13px}.fallg{columns:3 220px;column-gap:24px;margin-top:12px}.fallg h3{color:#fff;font-size:13px;margin:10px 0 4px;break-after:avoid}.fallg ul{margin:0 0 8px;padding-left:16px;color:#9fb8c1;font-size:12.5px;line-height:1.5}
-#lang{position:absolute;top:14px;right:16px;z-index:3;border:1px solid rgba(255,255,255,.6);background:rgba(11,34,48,.45);color:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;backdrop-filter:blur(4px)}#lang:hover{background:rgba(11,34,48,.7)}html.ar #lang{right:auto;left:16px}html.ar body{font-family:"Segoe UI",Tahoma,"Noto Sans Arabic","Geeza Pro",Arial,sans-serif}html.ar .ft{text-align:right}html.ar .hk,html.ar .ft h4{letter-spacing:0}html.ar .nm,html.ar .line>span:first-child,html.ar .ol b,html.ar details li,html.ar .ft li{unicode-bidi:plaintext;text-align:right}</style></head><body>
-<header class="hero"><button type="button" id="lang" lang="ar">الدارجة</button><picture><source media="(max-width:700px)" srcset="hero-m.webp"><img class="hbg" src="hero.webp" alt="" fetchpriority="high"></picture><div class="hin">
+#lang{position:absolute;top:14px;right:16px;z-index:3;display:flex;gap:2px;padding:3px;border:1px solid rgba(255,255,255,.45);background:rgba(11,34,48,.5);border-radius:999px;backdrop-filter:blur(4px)}#lang button{display:flex;align-items:center;gap:6px;border:0;background:none;color:#fff;border-radius:999px;padding:5px 11px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;opacity:.75}#lang button:hover{opacity:1}#lang button.on{background:#fff;color:#0b2230;opacity:1;cursor:default}#lang .flg{width:18px;height:12px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.15);flex-shrink:0}html.ar body{font-family:"Segoe UI",Tahoma,"Noto Sans Arabic","Geeza Pro",Arial,sans-serif}html.ar .hk,html.ar .ft h4{letter-spacing:0}html.ar body *{unicode-bidi:plaintext}html.ar .hk,html.ar .hsub,html.ar .hsub *,html.ar .ol,html.ar .stk,html.ar .kick,html.ar .ft p,html.ar .ft li,html.ar .ft summary,html.ar .line span,html.ar #count{text-align:left}html.ar #q::placeholder{direction:rtl;text-align:left}</style></head><body>
+<header class="hero"><div id="lang" role="group" aria-label="Langue"><button type="button" data-l="fr" lang="fr"><svg class="flg" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg>FR</button><button type="button" data-l="ar" lang="ar"><svg class="flg" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#C1272D"/><path d="M15 5.2l2.6 8-6.8-4.9h8.4l-6.8 4.9z" fill="none" stroke="#006233" stroke-width="1.1" stroke-linejoin="round"/></svg>الدارجة</button></div><picture><source media="(max-width:700px)" srcset="hero-m.webp"><img class="hbg" src="hero.webp" alt="" fetchpriority="high"></picture><div class="hin">
 <img class="hlogo" src="logo-blanc.png" alt="Souk du Pirate" width="230" height="222">
 <div class="htx"><p class="hk">Bienvenue chez</p><h1>Souk du Pirate</h1><p class="hcat">Catalogue</p>
 <p class="hsub"><strong>Boutique de surf, bodyboard et glisse au Maroc — <b style="white-space:nowrap;font-weight:inherit">au détail et en gros.</b></strong><span>Pour toi, ton club ou ton magasin : devis gratuit et sans engagement.</span></p>
@@ -411,7 +411,7 @@ var D={
 "Catalogue indisponible pour le moment. Écris-nous sur WhatsApp !":"الكاتالوگ ما خدامش دابا. كتب لينا ف واتساب!",
 "Chargement du catalogue…":"كيتشارجا الكاتالوگ…",
 "Voir la fiche":"شوف المنتوج","Moins":"نقص","Plus":"زيد","Fermer les filtres":"سد الفيلترات","Rechercher":"قلب",
-"Rechercher un article : palmes, leash, Science, taille…":"قلب على شي منتوج: پالمات، ليش، Science، قياس…"
+"Rechercher un article : palmes, leash, Science, taille…":"قلب على شي منتوج: پالمات، ليش، قياس…"
 };
 var P=[
 [/^(\d+) articles?$/,"$1 منتوج"],[/^Voir (\d+) articles?$/,"شوف $1 منتوج"],[/^Demander un devis · (\d+) articles?$/,"طلب ديفي · $1 منتوج"],
@@ -428,9 +428,9 @@ function walk(root){if(!root)return;if(root.nodeType===3){txt(root);return;}if(r
   el(root);root.querySelectorAll("[placeholder],[aria-label],[title]").forEach(el);
   var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode;return p&&(p.tagName==="SCRIPT"||p.tagName==="STYLE")?2:1;}}),n;while((n=w.nextNode()))txt(n);}
 window.SOUK_AR=AR;window.SOUK_T=function(s){if(!AR)return s;var r=tr(s);return r===null?s:r;};
-function btn(){var b=document.getElementById("lang");if(b){b.textContent=AR?"Français":"الدارجة";b.setAttribute("lang",AR?"fr":"ar");}}
-function go(){btn();var b=document.getElementById("lang");if(b)b.addEventListener("click",function(){try{localStorage.setItem(LK,AR?"fr":"ar");}catch(e){}location.reload();});
-  if(!AR)return;var h=document.documentElement;h.lang="ar";h.dir="rtl";h.classList.add("ar");walk(document.body);
+function btn(){document.querySelectorAll("#lang button").forEach(function(x){x.classList.toggle("on",(x.getAttribute("data-l")==="ar")===AR);});}
+function go(){btn();document.querySelectorAll("#lang button").forEach(function(x){x.addEventListener("click",function(){var l=x.getAttribute("data-l");if((l==="ar")===AR)return;try{localStorage.setItem(LK,l);}catch(e){}location.reload();});});
+  if(!AR)return;var h=document.documentElement;h.lang="ar";h.classList.add("ar");walk(document.body);
   new MutationObserver(function(ms){ms.forEach(function(m){if(m.type==="characterData")txt(m.target);else if(m.type==="attributes")el(m.target);else m.addedNodes.forEach(walk);});})
     .observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:AT});}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
